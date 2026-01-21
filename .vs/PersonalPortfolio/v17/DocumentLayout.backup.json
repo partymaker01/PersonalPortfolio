@@ -1,12 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\jeric\\Documents\\MVC WEB APP C#\\PersonalPortfolio\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{36919AB4-F69D-4907-87EF-22BFD4091952}|PersonalPortfolio\\PersonalPortfolio.csproj|c:\\users\\jeric\\documents\\mvc web app c#\\personalportfolio\\personalportfolio\\views\\dashboard\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{36919AB4-F69D-4907-87EF-22BFD4091952}|PersonalPortfolio\\PersonalPortfolio.csproj|solutionrelative:personalportfolio\\views\\dashboard\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -14,20 +9,15 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": -1,
           "Children": [
             {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\jeric\\Documents\\MVC WEB APP C#\\PersonalPortfolio\\PersonalPortfolio\\Views\\Dashboard\\Index.cshtml",
-              "RelativeDocumentMoniker": "PersonalPortfolio\\Views\\Dashboard\\Index.cshtml",
-              "ToolTip": "C:\\Users\\jeric\\Documents\\MVC WEB APP C#\\PersonalPortfolio\\PersonalPortfolio\\Views\\Dashboard\\Index.cshtml",
-              "RelativeToolTip": "PersonalPortfolio\\Views\\Dashboard\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-21T14:20:53.208Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
             }
           ]
         }
