@@ -69,8 +69,7 @@ git clone https://github.com/USERNAME/PersonalPortfolio.git
 ---
 
 ## 👨‍💻 Developer
-**Name:** Jerick  
-**Role:** Full Stack Developer  
+**Name:** Jerick Dela Cruz Reyes - PartyMaker
 **Purpose:** School Project / Portfolio
 
 ---
