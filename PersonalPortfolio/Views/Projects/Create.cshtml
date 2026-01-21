@@ -1,0 +1,98 @@
+@model ProjectViewModel
+@{
+    ViewData["Title"] = "Add Project";
+    Layout = "_DashboardLayout";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="h3 mb-1">Add Project</h1>
+        <p class="text-muted mb-0">Showcase your latest work</p>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body p-4">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+            <div class="row">
+                <div class="col-md-8 mb-3">
+                    <label asp-for="Title" class="form-label"></label>
+                    <input asp-for="Title" class="form-control" placeholder="Enter project title" />
+                    <span asp-validation-for="Title" class="text-danger small"></span>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label asp-for="Image" class="form-label"></label>
+                    <input asp-for="Image" class="form-control" type="file" accept="image/*" />
+                    <small class="text-muted">Max 10MB, PNG, JPG, GIF</small>
+                    <span asp-validation-for="Image" class="text-danger small"></span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label"></label>
+                <textarea asp-for="Description" class="form-control" rows="4" placeholder="Describe your project..."></textarea>
+                <span asp-validation-for="Description" class="text-danger small"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Technologies" class="form-label"></label>
+                <input asp-for="Technologies" class="form-control" placeholder="e.g., C#, ASP.NET Core, SQL Server, Bootstrap" />
+                <small class="text-muted">Separate technologies with commas</small>
+                <span asp-validation-for="Technologies" class="text-danger small"></span>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="ProjectUrl" class="form-label"></label>
+                    <input asp-for="ProjectUrl" class="form-control" placeholder="https://example.com" />
+                    <span asp-validation-for="ProjectUrl" class="text-danger small"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="GitHubUrl" class="form-label"></label>
+                    <input asp-for="GitHubUrl" class="form-control" placeholder="https://github.com/username/repo" />
+                    <span asp-validation-for="GitHubUrl" class="text-danger small"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label asp-for="StartDate" class="form-label"></label>
+                    <input asp-for="StartDate" class="form-control" type="date" />
+                    <span asp-validation-for="StartDate" class="text-danger small"></span>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label asp-for="EndDate" class="form-label"></label>
+                    <input asp-for="EndDate" class="form-control" type="date" />
+                    <span asp-validation-for="EndDate" class="text-danger small"></span>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label asp-for="DisplayOrder" class="form-label"></label>
+                    <input asp-for="DisplayOrder" class="form-control" type="number" min="0" />
+                    <span asp-validation-for="DisplayOrder" class="text-danger small"></span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <div class="form-check">
+                    <input asp-for="IsFeatured" class="form-check-input" />
+                    <label asp-for="IsFeatured" class="form-check-label">
+                        <i class="bi bi-star text-warning me-1"></i>Mark as Featured Project
+                    </label>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-end gap-2 mt-4">
+                <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-plus-lg me-2"></i>Add Project
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

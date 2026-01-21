@@ -1,0 +1,61 @@
+@model Contact
+@{
+    ViewData["Title"] = "View Message";
+    Layout = "_DashboardLayout";
+}
+
+<<div class="page-header d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4 mt-5">
+    <div>
+        <h1 class="h3 mb-1">View Message</h1>
+        <p class="text-muted mb-0">From @Model.Name</p>
+    </div>
+    <a asp-action="Index" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left me-2"></i>Back to Messages
+    </a>
+</div>
+
+<div class="card">
+    <div class="card-body p-4">
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <label class="text-muted small">From</label>
+                <p class="mb-0 fw-medium">@Model.Name</p>
+            </div>
+            <div class="col-md-6">
+                <label class="text-muted small">Email</label>
+                <p class="mb-0">
+                    <a href="mailto:@Model.Email">@Model.Email</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <label class="text-muted small">Subject</label>
+                <p class="mb-0">@(Model.Subject ?? "(No subject)")</p>
+            </div>
+            <div class="col-md-6">
+                <label class="text-muted small">Date</label>
+                <p class="mb-0">@Model.CreatedAt.ToString("MMMM dd, yyyy 'at' HH:mm")</p>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="mb-4">
+            <label class="text-muted small mb-2">Message</label>
+            <div class="bg-light rounded p-4">
+                <p class="mb-0" style="white-space: pre-wrap;">@Model.Message</p>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <a href="mailto:@Model.Email?subject=Re: @Model.Subject" class="btn btn-primary">
+                <i class="bi bi-reply me-2"></i>Reply via Email
+            </a>
+            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger">
+                <i class="bi bi-trash me-2"></i>Delete Message
+            </a>
+        </div>
+    </div>
+</div>

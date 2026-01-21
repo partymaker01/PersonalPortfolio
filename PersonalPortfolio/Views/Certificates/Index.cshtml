@@ -1,0 +1,93 @@
+@model IEnumerable<Certificate>
+@{
+    ViewData["Title"] = "Certificates";
+    Layout = "_DashboardLayout";
+}
+
+<div class="page-header d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4 mt-5">
+    <div>
+        <h1 class="h3 mb-1">Certificates</h1>
+        <p class="text-muted mb-0">Manage your certifications and achievements</p>
+    </div>
+    <a asp-action="Create" class="btn btn-primary">
+        <i class="bi bi-plus-lg me-2"></i>Add Certificate
+    </a>
+</div>
+
+@if (Model.Any())
+{
+    <div class="row g-4">
+        @foreach (var cert in Model)
+        {
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex align-items-start mb-3">
+                            <div class="bg-danger bg-opacity-10 rounded p-3 me-3">
+                                <i class="bi bi-award text-danger fs-4"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h5 class="card-title mb-1">@cert.Name</h5>
+                                <p class="text-muted small mb-0">@cert.IssuingOrganization</p>
+                            </div>
+                        </div>
+                        @if (cert.IssueDate.HasValue)
+                        {
+                            <p class="text-muted small mb-2">
+                                <i class="bi bi-calendar me-1"></i>
+                                Issued: @cert.IssueDate?.ToString("MMM yyyy")
+                                @if (!cert.DoesNotExpire && cert.ExpirationDate.HasValue)
+                                {
+                                    <span> - Expires: @cert.ExpirationDate?.ToString("MMM yyyy")</span>
+                                }
+                                @if (cert.DoesNotExpire)
+                                {
+                                    <span> - No Expiration</span>
+                                }
+                            </p>
+                        }
+                        @if (!string.IsNullOrEmpty(cert.CredentialId))
+                        {
+                            <p class="text-muted small mb-2">
+                                <i class="bi bi-key me-1"></i>ID: @cert.CredentialId
+                            </p>
+                        }
+                    </div>
+                    <div class="card-footer bg-transparent border-0 d-flex justify-content-between">
+                        @if (!string.IsNullOrEmpty(cert.CredentialUrl))
+                        {
+                            <a href="@cert.CredentialUrl" target="_blank" class="btn btn-sm btn-outline-success">
+                                <i class="bi bi-box-arrow-up-right me-1"></i>View
+                            </a>
+                        }
+                        else
+                        {
+                            <span></span>
+                        }
+                        <div class="d-flex gap-2">
+                            <a asp-action="Edit" asp-route-id="@cert.Id" class="btn btn-sm btn-outline-primary">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@cert.Id" class="btn btn-sm btn-outline-danger">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="card">
+        <div class="card-body text-center py-5">
+            <i class="bi bi-award text-muted" style="font-size: 4rem;"></i>
+            <h5 class="mt-3">No certificates yet</h5>
+            <p class="text-muted mb-3">Add your certifications and achievements</p>
+            <a asp-action="Create" class="btn btn-primary">
+                <i class="bi bi-plus-lg me-2"></i>Add Certificate
+            </a>
+        </div>
+    </div>
+}

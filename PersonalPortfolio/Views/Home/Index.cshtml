@@ -1,0 +1,294 @@
+﻿@model IEnumerable<ApplicationUser>
+@{
+    ViewData["Title"] = "Home";
+}
+
+<section class="hero-gradient text-white position-relative" style="min-height: 90vh; display: flex; align-items: center;">
+    <div class="container position-relative" style="z-index: 1;">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <div class="fade-in-up">
+                    <span class="badge bg-white bg-opacity-20 text-black px-3 py-2 mb-4" style="font-weight: 500;">
+                        <i class="bi bi-stars me-2"></i>Build Your Personal Portfolio Identity
+                    </span>
+                    <h1 class="display-3 fw-bold mb-4" style="line-height: 1.1;">
+                        Create Your
+                        <span class="d-block" style="background: linear-gradient(90deg, #fef08a, #fbbf24); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Stunning Portfolio</span>
+                    </h1>
+                    <p class="lead mb-5 opacity-90" style="font-size: 1.25rem; max-width: 500px;">
+                        Showcase your skills, projects, and professional journey. Stand out to employers and clients with a modern, beautiful portfolio.
+                    </p>
+                    @if (!User.Identity?.IsAuthenticated ?? true)
+                    {
+                        <div class="d-flex gap-3 flex-wrap">
+                            <a asp-controller="Account" asp-action="Register" class="btn btn-light btn-lg px-4 py-3" style="font-weight: 600;">
+                                <i class="bi bi-rocket-takeoff me-2"></i>Get Started Free
+                            </a>
+                            <a asp-controller="Account" asp-action="Login" class="btn btn-light btn-lg px-4 py-3">
+                                <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
+                            </a>
+                        </div>
+                    }
+                    else
+                    {
+                        <a asp-controller="Dashboard" asp-action="Index" class="btn btn-light btn-lg px-5 py-3" style="font-weight: 600;">
+                            <i class="bi bi-grid-1x2 me-2"></i>Go to Dashboard
+                        </a>
+                    }
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="fade-in-up delay-2 position-relative">
+                    <div class="glass rounded-4 p-4" style="transform: rotate(-2deg);">
+                        <div class="bg-white rounded-3 p-4 shadow-lg">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="rounded-circle d-flex align-items-center justify-content-center me-3"
+                                     style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary), var(--accent));">
+                                    <i class="bi bi-person text-white fs-4"></i>
+                                </div>
+                                <div>
+                                    <h5 class="mb-0 text-dark">PartyMaker</h5>
+                                    <small class="text-muted">GossipGuru</small>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between small mb-1">
+                                    <span class="text-dark">Ran Online PH</span>
+                                    <span class="text-muted">100%</span>
+                                </div>
+                                <div class="progress" style="height: 6px;">
+                                    <div class="progress-bar" style="width: 95%; background: linear-gradient(90deg, #4f46e5, #06b6d4);"></div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between small mb-1">
+                                    <span class="text-dark">Archer</span>
+                                    <span class="text-muted">100%</span>
+                                </div>
+                                <div class="progress" style="height: 6px;">
+                                    <div class="progress-bar" style="width: 88%; background: linear-gradient(90deg, #4f46e5, #06b6d4);"></div>
+                                </div>
+                            </div>
+                            <div class="d-flex gap-2 mt-4">
+                                <span class="badge" style="background: rgba(79, 70, 229, 0.1); color: #4f46e5;">5 Projects</span>
+                                <span class="badge" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">8 Skills</span>
+                                <span class="badge" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b;">3 Certs</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="position-absolute bottom-0 start-0 end-0">
+        <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="#f8fafc" />
+        </svg>
+    </div>
+</section>
+
+<section class="py-5 bg-light">
+    <div class="container py-5">
+        <div class="text-center mb-5 animate-on-scroll">
+            <span class="badge text-primary px-3 py-2 mb-3" style="background: rgba(79, 70, 229, 0.1); font-weight: 500;">Features</span>
+            <h2 class="display-5 fw-bold mb-3">Everything You Need</h2>
+            <p class="text-muted mx-auto" style="max-width: 600px;">Create a complete professional portfolio with our comprehensive set of tools and features.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4 animate-on-scroll">
+                <div class="card h-100 text-center p-4 border-0">
+                    <div class="card-body">
+                        <div class="feature-icon mx-auto" style="background: rgba(79, 70, 229, 0.1);">
+                            <i class="bi bi-lightning-charge" style="color: var(--primary);"></i>
+                        </div>
+                        <h5 class="fw-bold mb-3">Skills Showcase</h5>
+                        <p class="text-muted mb-0">Display your technical and soft skills with beautiful progress bars and categories.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 animate-on-scroll">
+                <div class="card h-100 text-center p-4 border-0">
+                    <div class="card-body">
+                        <div class="feature-icon mx-auto" style="background: rgba(16, 185, 129, 0.1);">
+                            <i class="bi bi-folder2-open" style="color: var(--success);"></i>
+                        </div>
+                        <h5 class="fw-bold mb-3">Project Gallery</h5>
+                        <p class="text-muted mb-0">Showcase your best work with images, descriptions, and links to live demos.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 animate-on-scroll">
+                <div class="card h-100 text-center p-4 border-0">
+                    <div class="card-body">
+                        <div class="feature-icon mx-auto" style="background: rgba(245, 158, 11, 0.1);">
+                            <i class="bi bi-patch-check" style="color: var(--warning);"></i>
+                        </div>
+                        <h5 class="fw-bold mb-3">Certifications</h5>
+                        <p class="text-muted mb-0">Highlight your credentials and professional certifications with verification links.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 animate-on-scroll">
+                <div class="card h-100 text-center p-4 border-0">
+                    <div class="card-body">
+                        <div class="feature-icon mx-auto" style="background: rgba(6, 182, 212, 0.1);">
+                            <i class="bi bi-briefcase" style="color: var(--accent);"></i>
+                        </div>
+                        <h5 class="fw-bold mb-3">Experience Timeline</h5>
+                        <p class="text-muted mb-0">Present your work history in a professional, easy-to-read timeline format.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 animate-on-scroll">
+                <div class="card h-100 text-center p-4 border-0">
+                    <div class="card-body">
+                        <div class="feature-icon mx-auto" style="background: rgba(239, 68, 68, 0.1);">
+                            <i class="bi bi-mortarboard" style="color: var(--danger);"></i>
+                        </div>
+                        <h5 class="fw-bold mb-3">Education History</h5>
+                        <p class="text-muted mb-0">Display your academic background and qualifications professionally.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 animate-on-scroll">
+                <div class="card h-100 text-center p-4 border-0">
+                    <div class="card-body">
+                        <div class="feature-icon mx-auto" style="background: rgba(168, 85, 247, 0.1);">
+                            <i class="bi bi-envelope-paper" style="color: #a855f7;"></i>
+                        </div>
+                        <h5 class="fw-bold mb-3">Contact Form</h5>
+                        <p class="text-muted mb-0">Receive messages directly from visitors interested in your work.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@if (Model.Any())
+{
+    <section class="py-5">
+        <div class="container py-5">
+            <div class="text-center mb-5 animate-on-scroll">
+                <span class="badge text-primary px-3 py-2 mb-3" style="background: rgba(79, 70, 229, 0.1); font-weight: 500;">Community</span>
+                <h2 class="display-5 fw-bold mb-3">Featured Portfolios</h2>
+                <p class="text-muted mx-auto" style="max-width: 600px;">Discover talented professionals who have built their presence on PortfolioHub.</p>
+            </div>
+            <div class="row g-4">
+                @foreach (var user in Model)
+                {
+                    <div class="col-md-6 col-lg-4 animate-on-scroll">
+                        <div class="card h-100 border-0">
+                            <div class="card-body text-center p-4">
+                                <div class="position-relative d-inline-block mb-3">
+                                    @if (!string.IsNullOrEmpty(user.ProfileImagePath))
+                                    {
+                                        <img src="@user.ProfileImagePath" alt="@user.FirstName" class="rounded-circle shadow"
+                                             style="width: 90px; height: 90px; object-fit: cover; border: 3px solid white;">
+                                    }
+                                    else
+                                    {
+                                        <div class="rounded-circle d-inline-flex align-items-center justify-content-center shadow"
+                                             style="width: 90px; height: 90px; background: linear-gradient(135deg, var(--primary), var(--accent));">
+                                            <i class="bi bi-person text-white fs-2"></i>
+                                        </div>
+                                    }
+                                </div>
+                                <h5 class="fw-bold mb-1">@user.FirstName @user.LastName</h5>
+                                @if (!string.IsNullOrEmpty(user.JobTitle))
+                                {
+                                    <p class="text-muted small mb-3">@user.JobTitle</p>
+                                }
+                                @if (user.Skills.Any())
+                                {
+                                    <div class="mb-3">
+                                        @foreach (var skill in user.Skills.Take(3))
+                                        {
+                                            <span class="badge me-1 mb-1" style="background: rgba(79, 70, 229, 0.1); color: var(--primary);">@skill.Name</span>
+                                        }
+                                    </div>
+                                }
+                                <a asp-controller="Home" asp-action="Portfolio" asp-route-username="@user.UserName"
+                                   class="btn btn-outline-primary w-100">
+                                    <i class="bi bi-arrow-right me-1"></i>View Portfolio
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+}
+
+<section class="py-5 hero-gradient text-white position-relative overflow-hidden">
+    <div class="container py-5 text-center position-relative" style="z-index: 1;">
+        <div class="animate-on-scroll">
+            <h2 class="display-5 fw-bold mb-3">Ready to Stand Out?</h2>
+            <p class="lead mb-4 opacity-90 mx-auto" style="max-width: 500px;">Join thousands of professionals showcasing their work and landing their dream opportunities.</p>
+            @if (!User.Identity?.IsAuthenticated ?? true)
+            {
+                <a asp-controller="Account" asp-action="Register" class="btn btn-light btn-lg px-5 py-3" style="font-weight: 600;">
+                    <i class="bi bi-rocket-takeoff me-2"></i>Create Your Portfolio Now
+                </a>
+            }
+        </div>
+    </div>
+</section>
+
+@section Styles {
+    <style>
+        .hero-gradient {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #06b6d4 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+            .hero-gradient::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .delay-2 {
+            animation-delay: 0.2s;
+        }
+
+        @@keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+}

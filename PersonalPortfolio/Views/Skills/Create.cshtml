@@ -1,0 +1,113 @@
+@model Skill
+@{
+    ViewData["Title"] = "Add Skill";
+    Layout = "_DashboardLayout";
+
+    // Default values if Model is null
+    var proficiency = Model?.Proficiency ?? 50;
+}
+
+<div class="page-header d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-1">
+                <li class="breadcrumb-item"><a asp-controller="Skills" asp-action="Index" class="text-decoration-none">Skills</a></li>
+                <li class="breadcrumb-item active">Add New</li>
+            </ol>
+        </nav>
+        <h1 class="h3 fw-bold mb-1">Add New Skill</h1>
+        <p class="text-muted mb-0">Add a new skill to showcase your expertise</p>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-body p-4">
+                <form asp-action="Create" method="post">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger border-0 mb-4"
+                         style="border-radius: 12px; background: rgba(239, 68, 68, 0.1); color: #dc2626;" role="alert"></div>
+
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <label asp-for="Name" class="form-label fw-medium">Skill Name <span class="text-danger">*</span></label>
+                            <input asp-for="Name" class="form-control" placeholder="e.g., JavaScript, Python, UI Design" />
+                            <span asp-validation-for="Name" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Category" class="form-label fw-medium">Category</label>
+                            <input asp-for="Category" class="form-control" placeholder="e.g., Programming, Design, Soft Skills" />
+                            <span asp-validation-for="Category" class="text-danger small"></span>
+                            <small class="text-muted">Group similar skills together</small>
+                        </div>
+                        <div class="col-12">
+                            <label asp-for="Proficiency" class="form-label fw-medium">Proficiency Level</label>
+                            <div class="card border-0 p-4" style="background: #f8fafc; border-radius: 12px;">
+                                <div class="d-flex align-items-center gap-4">
+                                    <input type="range" asp-for="Proficiency" class="form-range flex-grow-1"
+                                           min="0" max="100" step="5" id="proficiencyRange"
+                                           value="@proficiency" style="accent-color: #4f46e5;" />
+                                    <div class="text-center" style="min-width: 80px;">
+                                        <span id="proficiencyValue" class="d-block fw-bold fs-4" style="color: #4f46e5;">@proficiency%</span>
+                                        <small class="text-muted" id="proficiencyLabel">Intermediate</small>
+                                    </div>
+                                </div>
+                                <div class="progress mt-3" style="height: 8px;">
+                                    <div class="progress-bar" id="proficiencyBar" role="progressbar"
+                                         style="width: @proficiency%; background: linear-gradient(90deg, #4f46e5, #06b6d4);"></div>
+                                </div>
+                            </div>
+                            <span asp-validation-for="Proficiency" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="DisplayOrder" class="form-label fw-medium">Display Order</label>
+                            <input asp-for="DisplayOrder" class="form-control" type="number" min="0" value="0" />
+                            <span asp-validation-for="DisplayOrder" class="text-danger small"></span>
+                            <small class="text-muted">Lower numbers appear first</small>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-3 mt-4 pt-3 border-top">
+                        <a asp-action="Index" class="btn btn-outline-secondary px-4">Cancel</a>
+                        <button type="submit" class="btn btn-primary px-4">
+                            <i class="bi bi-plus-lg me-2"></i>Add Skill
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        const range = document.getElementById('proficiencyRange');
+        const value = document.getElementById('proficiencyValue');
+        const label = document.getElementById('proficiencyLabel');
+        const bar = document.getElementById('proficiencyBar');
+
+        function updateProficiency() {
+            const val = range.value;
+            value.textContent = val + '%';
+            bar.style.width = val + '%';
+
+            if (val < 25) {
+                label.textContent = 'Beginner';
+            } else if (val < 50) {
+                label.textContent = 'Elementary';
+            } else if (val < 75) {
+                label.textContent = 'Intermediate';
+            } else if (val < 90) {
+                label.textContent = 'Advanced';
+            } else {
+                label.textContent = 'Expert';
+            }
+        }
+
+        range.addEventListener('input', updateProficiency);
+
+        // Initialize on page load
+        updateProficiency();
+    </script>
+}

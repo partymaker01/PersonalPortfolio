@@ -1,0 +1,66 @@
+@model Skill
+@{
+    ViewData["Title"] = "Edit Skill";
+    Layout = "_DashboardLayout";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="h3 mb-1">Edit Skill</h1>
+        <p class="text-muted mb-0">Update your skill information</p>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body p-4">
+        <form asp-action="Edit" method="post">
+            <input type="hidden" asp-for="Id" />
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Name" class="form-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger small"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Category" class="form-label"></label>
+                    <input asp-for="Category" class="form-control" />
+                    <span asp-validation-for="Category" class="text-danger small"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Proficiency" class="form-label"></label>
+                    <div class="d-flex align-items-center gap-3">
+                        <input type="range" asp-for="Proficiency" class="form-range flex-grow-1" min="0" max="100" step="5" id="proficiencyRange" />
+                        <span id="proficiencyValue" class="badge bg-primary" style="min-width: 50px;">@(Model.Proficiency)%</span>
+                    </div>
+                    <span asp-validation-for="Proficiency" class="text-danger small"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="DisplayOrder" class="form-label"></label>
+                    <input asp-for="DisplayOrder" class="form-control" type="number" min="0" />
+                    <span asp-validation-for="DisplayOrder" class="text-danger small"></span>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-end gap-2 mt-4">
+                <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check-lg me-2"></i>Save Changes
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        document.getElementById('proficiencyRange').addEventListener('input', function() {
+            document.getElementById('proficiencyValue').textContent = this.value + '%';
+        });
+    </script>
+}

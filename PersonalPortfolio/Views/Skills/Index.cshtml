@@ -1,0 +1,96 @@
+@model IEnumerable<Skill>
+@{
+    ViewData["Title"] = "Skills";
+    Layout = "_DashboardLayout";
+}
+
+<div class="page-header d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4 mt-5">
+    <div>
+        <h1 class="h3 fw-bold mb-1">Skills</h1>
+        <p class="text-muted mb-0">Manage your skills and expertise</p>
+    </div>
+    <a asp-action="Create" class="btn btn-primary">
+        <i class="bi bi-plus-lg me-2"></i>Add Skill
+    </a>
+</div>
+
+@if (Model.Any())
+{
+    <div class="card">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th style="width: 30%;">Skill Name</th>
+                        <th style="width: 20%;">Category</th>
+                        <th style="width: 30%;">Proficiency</th>
+                        <th style="width: 10%;">Order</th>
+                        <th class="text-end" style="width: 10%;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var skill in Model)
+                    {
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="rounded-circle d-flex align-items-center justify-content-center me-3"
+                                         style="width: 40px; height: 40px; background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(79, 70, 229, 0.2));">
+                                        <i class="bi bi-lightning-charge" style="color: #4f46e5;"></i>
+                                    </div>
+                                    <span class="fw-semibold">@skill.Name</span>
+                                </div>
+                            </td>
+                            <td>
+                                @if (!string.IsNullOrEmpty(skill.Category))
+                                {
+                                    <span class="badge" style="background: rgba(100, 116, 139, 0.1); color: #64748b;">@skill.Category</span>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">-</span>
+                                }
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="progress flex-grow-1" style="height: 8px; max-width: 200px;">
+                                        <div class="progress-bar" role="progressbar" style="width: @skill.Proficiency%; background: linear-gradient(90deg, #4f46e5, #06b6d4);"></div>
+                                    </div>
+                                    <span class="text-muted small fw-medium" style="min-width: 40px;">@skill.Proficiency%</span>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge bg-light text-dark">@skill.DisplayOrder</span>
+                            </td>
+                            <td>
+                                <div class="d-flex justify-content-end gap-2">
+                                    <a asp-action="Edit" asp-route-id="@skill.Id" class="btn btn-sm btn-outline-primary" title="Edit">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@skill.Id" class="btn btn-sm btn-outline-danger" title="Delete">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+else
+{
+    <div class="card">
+        <div class="empty-state">
+            <div class="empty-state-icon">
+                <i class="bi bi-lightning-charge"></i>
+            </div>
+            <h5 class="fw-bold mb-2">No skills added yet</h5>
+            <p class="text-muted mb-4">Start adding your skills to showcase your expertise to visitors</p>
+            <a asp-action="Create" class="btn btn-primary">
+                <i class="bi bi-plus-lg me-2"></i>Add Your First Skill
+            </a>
+        </div>
+    </div>
+}

@@ -1,0 +1,399 @@
+@model PortfolioViewModel
+@{
+    ViewData["Title"] = $"{Model.User.FirstName} {Model.User.LastName} - Portfolio";
+}
+
+<section class="portfolio-hero text-white position-relative py-5">
+    <div class="container position-relative" style="z-index: 1;">
+        <div class="row align-items-center py-5">
+            <div class="col-lg-4 text-center mb-4 mb-lg-0">
+                <div class="profile-image-wrapper">
+                    @if (!string.IsNullOrEmpty(Model.User.ProfileImagePath))
+                    {
+                        <img src="@Model.User.ProfileImagePath" alt="@Model.User.FirstName" class="profile-image rounded-circle shadow-lg">
+                    }
+                    else
+                    {
+                        <div class="profile-image rounded-circle bg-white d-inline-flex align-items-center justify-content-center shadow-lg">
+                            <i class="bi bi-person" style="font-size: 4rem; color: #4f46e5;"></i>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="fade-in-up">
+                    <span class="badge bg-white bg-opacity-20 text-black px-3 py-2 mb-3">Portfolio</span>
+                    <h1 class="display-4 fw-bold mb-2">@Model.User.FirstName @Model.User.LastName</h1>
+                    @if (!string.IsNullOrEmpty(Model.User.JobTitle))
+                    {
+                        <p class="lead mb-3 opacity-90" style="font-size: 1.35rem;">@Model.User.JobTitle</p>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.User.Location))
+                    {
+                        <p class="mb-3 opacity-75"><i class="bi bi-geo-alt me-2"></i>@Model.User.Location</p>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.User.Bio))
+                    {
+                        <p class="mb-4 opacity-90" style="max-width: 600px; line-height: 1.7;">@Model.User.Bio</p>
+                    }
+                    <div class="d-flex gap-3 flex-wrap">
+                        @if (!string.IsNullOrEmpty(Model.User.LinkedInUrl))
+                        {
+                            <a href="@Model.User.LinkedInUrl" target="_blank" class="btn btn-outline-light px-4">
+                                <i class="bi bi-linkedin me-2"></i>LinkedIn
+                            </a>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.User.GitHubUrl))
+                        {
+                            <a href="@Model.User.GitHubUrl" target="_blank" class="btn btn-outline-light px-4">
+                                <i class="bi bi-github me-2"></i>GitHub
+                            </a>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.User.TwitterUrl))
+                        {
+                            <a href="@Model.User.TwitterUrl" target="_blank" class="btn btn-outline-light px-4">
+                                <i class="bi bi-twitter-x me-2"></i>Twitter
+                            </a>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.User.WebsiteUrl))
+                        {
+                            <a href="@Model.User.WebsiteUrl" target="_blank" class="btn btn-outline-light px-4">
+                                <i class="bi bi-globe me-2"></i>Website
+                            </a>
+                        }
+                        <a asp-controller="Contact" asp-action="Send" asp-route-username="@Model.User.UserName" class="btn btn-light px-4">
+                            <i class="bi bi-envelope me-2"></i>Contact Me
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="position-absolute bottom-0 start-0 end-0">
+        <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="#f8fafc" />
+        </svg>
+    </div>
+</section>
+
+@if (Model.Skills.Any())
+{
+    <section class="py-5 bg-light">
+        <div class="container py-4">
+            <div class="text-center mb-5">
+                <span class="badge px-3 py-2 mb-3" style="background: rgba(79, 70, 229, 0.1); color: #4f46e5;">Expertise</span>
+                <h2 class="display-6 fw-bold">Skills & Technologies</h2>
+            </div>
+            <div class="row g-4 justify-content-center">
+                @foreach (var skill in Model.Skills)
+                {
+                    <div class="col-md-6 col-lg-5">
+                        <div class="card border-0 shadow-sm p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="fw-semibold">@skill.Name</span>
+                                <span class="badge" style="background: rgba(79, 70, 229, 0.1); color: #4f46e5;">@skill.Proficiency%</span>
+                            </div>
+                            <div class="progress" style="height: 10px; border-radius: 10px;">
+                                <div class="progress-bar skill-bar" role="progressbar" style="width: @skill.Proficiency%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+}
+
+@if (Model.Projects.Any())
+{
+    <section class="py-5">
+        <div class="container py-4">
+            <div class="text-center mb-5">
+                <span class="badge px-3 py-2 mb-3" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">Portfolio</span>
+                <h2 class="display-6 fw-bold">Featured Projects</h2>
+            </div>
+            <div class="row g-4">
+                @foreach (var project in Model.Projects)
+                {
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 border-0 shadow-sm overflow-hidden project-card">
+                            @if (!string.IsNullOrEmpty(project.ImagePath))
+                            {
+                                <img src="@project.ImagePath" class="card-img-top" alt="@project.Title" style="height: 220px; object-fit: cover;">
+                            }
+                            else
+                            {
+                                <div class="d-flex align-items-center justify-content-center"
+                                     style="height: 220px; background: linear-gradient(135deg, #f1f5f9, #e2e8f0);">
+                                    <i class="bi bi-folder2-open" style="font-size: 4rem; color: #94a3b8;"></i>
+                                </div>
+                            }
+                            <div class="card-body p-4">
+                                <h5 class="card-title fw-bold mb-2">@project.Title</h5>
+                                <p class="card-text text-muted small mb-3" style="line-height: 1.7;">
+                                    @(project.Description.Length > 120 ? project.Description.Substring(0, 120) + "..." : project.Description)
+                                </p>
+                                @if (!string.IsNullOrEmpty(project.Technologies))
+                                {
+                                    <div class="d-flex flex-wrap gap-1 mb-3">
+                                        @foreach (var tech in project.Technologies.Split(',').Take(4))
+                                        {
+                                            <span class="badge" style="background: rgba(100, 116, 139, 0.1); color: #64748b;">@tech.Trim()</span>
+                                        }
+                                    </div>
+                                }
+                                <div class="d-flex gap-2 mt-auto">
+                                    @if (!string.IsNullOrEmpty(project.ProjectUrl))
+                                    {
+                                        <a href="@project.ProjectUrl" target="_blank" class="btn btn-primary btn-sm px-3">
+                                            <i class="bi bi-eye me-1"></i>Live Demo
+                                        </a>
+                                    }
+                                    @if (!string.IsNullOrEmpty(project.GitHubUrl))
+                                    {
+                                        <a href="@project.GitHubUrl" target="_blank" class="btn btn-outline-secondary btn-sm px-3">
+                                            <i class="bi bi-github me-1"></i>Code
+                                        </a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+}
+
+@if (Model.Experiences.Any())
+{
+    <section class="py-5 bg-light">
+        <div class="container py-4">
+            <div class="text-center mb-5">
+                <span class="badge px-3 py-2 mb-3" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b;">Career</span>
+                <h2 class="display-6 fw-bold">Work Experience</h2>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    @foreach (var exp in Model.Experiences)
+                    {
+                        <div class="timeline-item position-relative ps-5 pb-4 mb-4">
+                            <div class="timeline-dot position-absolute start-0" style="width: 16px; height: 16px; border-radius: 50%; background: linear-gradient(135deg, #4f46e5, #06b6d4); top: 6px;"></div>
+                            <div class="timeline-line position-absolute start-0" style="width: 2px; background: #e2e8f0; top: 28px; bottom: 0; left: 7px;"></div>
+                            <div class="card border-0 shadow-sm">
+                                <div class="card-body p-4">
+                                    <h5 class="fw-bold mb-1">@exp.JobTitle</h5>
+                                    <p class="mb-2" style="color: #4f46e5; font-weight: 500;">@exp.Company</p>
+                                    <p class="text-muted small mb-3">
+                                        <i class="bi bi-calendar3 me-1"></i>
+                                        @(exp.StartDate.HasValue? exp.StartDate.Value.ToString("MMM yyyy") : "N/A") - @(exp.IsCurrentlyWorking ? "Present" : (exp.EndDate.HasValue ? exp.EndDate.Value.ToString("MMM yyyy") : "N/A"))
+                                        @if (!string.IsNullOrEmpty(exp.Location))
+                                        {
+                                            <span class="ms-3"><i class="bi bi-geo-alt me-1"></i>@exp.Location</span>
+                                        }
+                                    </p>
+                                    @if (!string.IsNullOrEmpty(exp.Description))
+                                    {
+                                        <p class="mb-0 text-muted" style="line-height: 1.7;">@exp.Description</p>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+@if (Model.Educations.Any())
+{
+    <section class="py-5">
+        <div class="container py-4">
+            <div class="text-center mb-5">
+                <span class="badge px-3 py-2 mb-3" style="background: rgba(6, 182, 212, 0.1); color: #06b6d4;">Academic</span>
+                <h2 class="display-6 fw-bold">Education</h2>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    @foreach (var edu in Model.Educations)
+                    {
+                        <div class="timeline-item position-relative ps-5 pb-4 mb-4">
+                            <div class="timeline-dot position-absolute start-0" style="width: 16px; height: 16px; border-radius: 50%; background: linear-gradient(135deg, #10b981, #34d399); top: 6px;"></div>
+                            <div class="timeline-line position-absolute start-0" style="width: 2px; background: #e2e8f0; top: 28px; bottom: 0; left: 7px;"></div>
+                            <div class="card border-0 shadow-sm">
+                                <div class="card-body p-4">
+                                    <h5 class="fw-bold mb-1">@edu.Degree</h5>
+                                    <p class="mb-2" style="color: #10b981; font-weight: 500;">@edu.Institution</p>
+                                    @if (!string.IsNullOrEmpty(edu.FieldOfStudy))
+                                    {
+                                        <p class="mb-2 text-muted">@edu.FieldOfStudy</p>
+                                    }
+                                    <p class="text-muted small mb-0">
+                                        <i class="bi bi-calendar3 me-1"></i>
+                                        @(edu.StartDate.HasValue? edu.StartDate.Value.ToString("MMM yyyy") : "N/A") - @(edu.IsCurrentlyStudying ? "Present" : (edu.EndDate.HasValue ? edu.EndDate.Value.ToString("MMM yyyy") : "N/A"))
+                                        @if (!string.IsNullOrEmpty(edu.Grade))
+                                        {
+                                            <span class="ms-3"><i class="bi bi-award me-1"></i>Grade: @edu.Grade</span>
+                                        }
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+@if (Model.Certificates.Any())
+{
+    <section class="py-5 bg-light">
+        <div class="container py-4">
+            <div class="text-center mb-5">
+                <span class="badge px-3 py-2 mb-3" style="background: rgba(168, 85, 247, 0.1); color: #a855f7;">Credentials</span>
+                <h2 class="display-6 fw-bold">Certifications</h2>
+            </div>
+            <div class="row g-4 justify-content-center">
+                @foreach (var cert in Model.Certificates)
+                {
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-start mb-3">
+                                    <div class="rounded-3 d-flex align-items-center justify-content-center me-3"
+                                         style="width: 50px; height: 50px; background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(168, 85, 247, 0.2));">
+                                        <i class="bi bi-patch-check" style="font-size: 1.5rem; color: #a855f7;"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="fw-bold mb-1" style="font-size: 1.1rem;">@cert.Name</h5>
+                                        <p class="text-muted small mb-0">@cert.IssuingOrganization</p>
+                                    </div>
+                                </div>
+                                @if (cert.IssueDate.HasValue)
+                                {
+                                    <p class="text-muted small mb-3">
+                                        <i class="bi bi-calendar3 me-1"></i>
+                                        Issued: @cert.IssueDate?.ToString("MMM yyyy")
+                                        @if (!cert.DoesNotExpire && cert.ExpirationDate.HasValue)
+                                        {
+                                            <span> - Expires: @cert.ExpirationDate?.ToString("MMM yyyy")</span>
+                                        }
+                                    </p>
+                                }
+                                @if (!string.IsNullOrEmpty(cert.CredentialUrl))
+                                {
+                                    <a href="@cert.CredentialUrl" target="_blank" class="btn btn-sm w-100"
+                                       style="background: rgba(168, 85, 247, 0.1); color: #a855f7;">
+                                        <i class="bi bi-box-arrow-up-right me-1"></i>View Credential
+                                    </a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+}
+
+<section class="py-5 cta-section text-white position-relative">
+    <div class="container py-4 text-center position-relative" style="z-index: 1;">
+        <h2 class="display-6 fw-bold mb-3">Let's Work Together</h2>
+        <p class="lead mb-4 opacity-90">Interested in collaborating? I'd love to hear from you!</p>
+        <a asp-controller="Contact" asp-action="Send" asp-route-username="@Model.User.UserName" class="btn btn-light btn-lg px-5">
+            <i class="bi bi-envelope me-2"></i>Get In Touch
+        </a>
+    </div>
+</section>
+
+@section Styles {
+    <style>
+        .portfolio-hero {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #06b6d4 100%);
+            min-height: 500px;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .portfolio-hero::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            }
+
+        .profile-image {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border: 5px solid white;
+        }
+
+        .skill-bar {
+            background: linear-gradient(90deg, #4f46e5 0%, #06b6d4 100%);
+            border-radius: 10px;
+            transition: width 1.5s ease-out;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+        }
+
+            .project-card:hover .card-img-top {
+                transform: scale(1.05);
+            }
+
+        .project-card .card-img-top {
+            transition: transform 0.4s ease;
+        }
+
+        .timeline-item:last-child .timeline-line {
+            display: none;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #06b6d4 100%);
+        }
+
+            .cta-section::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        @@keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .btn-outline-light {
+            border: 2px solid rgba(255, 255, 255, 0.6);
+        }
+
+            .btn-outline-light:hover {
+                background: white;
+                color: #4f46e5;
+                border-color: white;
+            }
+    </style>
+}

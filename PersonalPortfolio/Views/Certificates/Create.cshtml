@@ -1,0 +1,96 @@
+@model CertificateViewModel
+@{
+    ViewData["Title"] = "Add Certificate";
+    Layout = "_DashboardLayout";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="h3 mb-1">Add Certificate</h1>
+        <p class="text-muted mb-0">Add your certification or achievement</p>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body p-4">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Name" class="form-label"></label>
+                    <input asp-for="Name" class="form-control" placeholder="e.g., AWS Solutions Architect" />
+                    <span asp-validation-for="Name" class="text-danger small"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Image" class="form-label"></label>
+                    <input asp-for="Image" class="form-control" type="file" accept="image/*" />
+                    <span asp-validation-for="Image" class="text-danger small"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label asp-for="IssuingOrganization" class="form-label"></label>
+                    <input asp-for="IssuingOrganization" class="form-control" placeholder="e.g., Amazon Web Services" />
+                    <span asp-validation-for="IssuingOrganization" class="text-danger small"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="CredentialId" class="form-label"></label>
+                    <input asp-for="CredentialId" class="form-control" placeholder="Certificate ID or number" />
+                    <span asp-validation-for="CredentialId" class="text-danger small"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="CredentialUrl" class="form-label"></label>
+                    <input asp-for="CredentialUrl" class="form-control" placeholder="https://verify.example.com/cert/123" />
+                    <span asp-validation-for="CredentialUrl" class="text-danger small"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label asp-for="IssueDate" class="form-label"></label>
+                    <input asp-for="IssueDate" class="form-control" type="date" />
+                    <span asp-validation-for="IssueDate" class="text-danger small"></span>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label asp-for="ExpirationDate" class="form-label"></label>
+                    <input asp-for="ExpirationDate" class="form-control" type="date" />
+                    <span asp-validation-for="ExpirationDate" class="text-danger small"></span>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label asp-for="DisplayOrder" class="form-label"></label>
+                    <input asp-for="DisplayOrder" class="form-control" type="number" min="0" />
+                    <span asp-validation-for="DisplayOrder" class="text-danger small"></span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <div class="form-check">
+                    <input asp-for="DoesNotExpire" class="form-check-input" />
+                    <label asp-for="DoesNotExpire" class="form-check-label">This credential does not expire</label>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label"></label>
+                <textarea asp-for="Description" class="form-control" rows="3" placeholder="Additional details about this certification..."></textarea>
+                <span asp-validation-for="Description" class="text-danger small"></span>
+            </div>
+
+            <div class="d-flex justify-content-end gap-2 mt-4">
+                <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-plus-lg me-2"></i>Add Certificate
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
